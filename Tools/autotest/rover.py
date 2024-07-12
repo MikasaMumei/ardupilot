@@ -334,8 +334,8 @@ class AutoTestRover(vehicle_test_suite.TestSuite):
         except Exception as e:
             self.print_exception_caught(e)
             ex = e
-        self.context_pop()
         self.disarm_vehicle(force=True)
+        self.context_pop()
         self.reboot_sitl()
         if ex:
             raise ex
@@ -578,9 +578,9 @@ Brakes have negligible effect (with=%0.2fm without=%0.2fm delta=%0.2fm)
         except Exception as e:
             self.print_exception_caught(e)
             ex = e
+        self.disarm_vehicle(force=True)
         self.context_pop()
         self.clear_mission(mavutil.mavlink.MAV_MISSION_TYPE_FENCE)
-        self.disarm_vehicle(force=True)
         self.reboot_sitl()
         if ex:
             raise ex
@@ -1133,8 +1133,8 @@ Brakes have negligible effect (with=%0.2fm without=%0.2fm delta=%0.2fm)
             self.print_exception_caught(e)
             ex = e
 
-        self.context_pop()
         self.disarm_vehicle()
+        self.context_pop()
         self.reboot_sitl()
 
         if ex is not None:
@@ -1223,8 +1223,8 @@ Brakes have negligible effect (with=%0.2fm without=%0.2fm delta=%0.2fm)
             self.print_exception_caught(e)
             ex = e
 
-        self.context_pop()
         self.disarm_vehicle()
+        self.context_pop()
         self.reboot_sitl()
 
         if ex is not None:
@@ -3696,7 +3696,7 @@ Brakes have negligible effect (with=%0.2fm without=%0.2fm delta=%0.2fm)
 #        oldalt = downloaded_items[changealt_item].z
         want_newalt = 37.2
         mavproxy.send('wp changealt %u %f\n' % (changealt_item, want_newalt))
-        self.delay_sim_time(5)
+        self.delay_sim_time(15)
         downloaded_items = self.download_using_mission_protocol(mavutil.mavlink.MAV_MISSION_TYPE_MISSION)
         if abs(downloaded_items[changealt_item].z - want_newalt) > 0.0001:
             raise NotAchievedException(

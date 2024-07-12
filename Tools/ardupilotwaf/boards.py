@@ -286,7 +286,7 @@ class Board:
 
         if cfg.env.DEBUG:
             env.CFLAGS += [
-                '-g3',
+                '-g',
                 '-O0',
             ]
             env.DEFINES.update(
@@ -294,7 +294,7 @@ class Board:
             )
         elif cfg.options.debug_symbols:
             env.CFLAGS += [
-                '-g3',
+                '-g',
             ]
         if cfg.env.COVERAGE:
             env.CFLAGS += [
@@ -753,8 +753,10 @@ class sitl(Board):
         ]
 
         # wrap malloc to ensure memory is zeroed
-        # don't do this on MacOS as ld doesn't support --wrap
-        if platform.system() != 'Darwin':
+        if cfg.env.DEST_OS == 'cygwin':
+            # on cygwin we need to wrap _malloc_r instead
+            env.LINKFLAGS += ['-Wl,--wrap,_malloc_r']
+        elif platform.system() != 'Darwin':
             env.LINKFLAGS += ['-Wl,--wrap,malloc']
         
         if cfg.options.enable_sfml:
@@ -981,7 +983,6 @@ class esp32(Board):
         
         # this makes sure we get the correct subtype
         env.DEFINES.update(
-            ENABLE_HEAP = 0,
             CONFIG_HAL_BOARD_SUBTYPE = 'HAL_BOARD_SUBTYPE_ESP32_%s' %  tt.upper() ,
             HAL_HAVE_HARDWARE_DOUBLE = '1',
         )
@@ -1019,8 +1020,7 @@ class esp32(Board):
                          '-fno-inline-functions',
                          '-mlongcalls',
                          '-fsingle-precision-constant', # force const vals to be float , not double. so 100.0 means 100.0f 
-                         '-fno-threadsafe-statics',
-                         '-DCYGWIN_BUILD']
+                         '-fno-threadsafe-statics']
         env.CXXFLAGS.remove('-Werror=undef')
         env.CXXFLAGS.remove('-Werror=shadow')
 
