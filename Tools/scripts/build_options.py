@@ -191,6 +191,9 @@ BUILD_OPTIONS = [
     Feature('Payload', 'SPRAYER', 'HAL_SPRAYER_ENABLED', 'Enable Sprayer', 0, None),
     Feature('Payload', 'LANDING_GEAR', 'AP_LANDINGGEAR_ENABLED', 'Enable Landing Gear', 0, None),
     Feature('Payload', 'WINCH', 'AP_WINCH_ENABLED', 'Enable Winch', 0, None),
+    Feature('Payload', 'WINCH_DAIWA', 'AP_WINCH_DAIWA_ENABLED', 'Enable DAIWA Winch support', 0, 'WINCH'),
+    Feature('Payload', 'WINCH_PWM', 'AP_WINCH_PWM_ENABLED', 'Enable PWM Winch support', 0, 'WINCH'),
+
     Feature('Payload', 'RELAY', 'AP_RELAY_ENABLED', 'Enable Relay support', 0, None),
     Feature('Payload', 'SERVORELAY_EVENTS', 'AP_SERVORELAYEVENTS_ENABLED', 'Enable Servo/Relay Event support', 0, None),
 
@@ -213,6 +216,7 @@ BUILD_OPTIONS = [
     Feature('RC', 'RC_SUMD', 'AP_RCPROTOCOL_SUMD_ENABLED', "Enable SUMD RC Protocol", 0, "RC_Protocol"),   # NOQA: E501
     Feature('RC', 'RC_GHST', 'AP_RCPROTOCOL_GHST_ENABLED', "Enable Ghost RC Protocol", 0, "RC_Protocol"),   # NOQA: E501
     Feature('RC', 'RC_MAVLINK_RADIO', 'AP_RCPROTOCOL_MAVLINK_RADIO_ENABLED', "Enable MAVLink RC Protocol", 0, "RC_Protocol"),   # NOQA: E501
+    Feature('RC', 'RSSI', 'AP_RSSI_ENABLED', 'Enable RSSI handling library', 0, None),
 
     Feature('Rangefinder', 'RANGEFINDER', 'AP_RANGEFINDER_ENABLED', "Enable Rangefinders", 0, None),   # NOQA: E501
     Feature('Rangefinder', 'RANGEFINDER_ANALOG', 'AP_RANGEFINDER_ANALOG_ENABLED', "Enable Rangefinder - Analog", 0, "RANGEFINDER"),   # NOQA: E501
@@ -344,6 +348,7 @@ BUILD_OPTIONS = [
     Feature('MAVLink', 'MAV_MSG_SERIAL_CONTROL', 'AP_MAVLINK_MSG_SERIAL_CONTROL_ENABLED', 'Enable handling of Serial Control mavlink messages', 0, None),  # noqa
     Feature('MAVLink', 'MAVLINK_MSG_MISSION_REQUEST', 'AP_MAVLINK_MSG_MISSION_REQUEST_ENABLED', 'Enable handling of MISSION_REQUEST mavlink messages', 0, None),  # noqa
     Feature('MAVLink', 'AP_MAVLINK_FTP_ENABLED', 'AP_MAVLINK_FTP_ENABLED', 'Enable MAVLink FTP Protocol', 0, None),  # noqa
+    Feature('MAVLink', 'MAV_CMD_SET_HAGL', 'AP_MAVLINK_MAV_CMD_SET_HAGL_ENABLED', 'Enable MAVLink HAGL command', 0, None),  # noqa
 
     Feature('Developer', 'KILL_IMU', 'AP_INERTIALSENSOR_KILL_IMU_ENABLED', 'Allow IMUs to be disabled at runtime', 0, None),
     Feature('Developer', 'CRASHCATCHER', 'AP_CRASHDUMP_ENABLED', 'Enable CrashCatcher', 0, None),
